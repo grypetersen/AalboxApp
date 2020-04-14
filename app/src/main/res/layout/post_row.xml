@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/text_view_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="category">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/text_view_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location">
+        </TextView>
+
+        <TextView
+            android:id="@+id/text_view_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="description"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/text_view_location"
+            android:layout_centerInParent="true">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_description"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp">
+
+
+            <ImageButton
+                android:id="@+id/btn_dislike"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/dislike"
+                android:layout_marginRight="10dp"
+                >
+
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/text_view_dislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_view_description"
+                android:text="dislike"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp">
+            </TextView>
+
+            <ImageButton
+                android:id="@+id/btn_like"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/heart"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="40dp"
+
+                >
+
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/text_view_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_view_description"
+                android:text="dislike"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp">
+            </TextView>
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
