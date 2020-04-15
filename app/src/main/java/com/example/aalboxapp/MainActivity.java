@@ -9,12 +9,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigation;
     private PostViewModel postViewModel;
     private final List<PostWithInteractions> postWithInteractions = null;
 
@@ -22,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        //openFragment(com.example.aalboxapp.fragments.FeedFragment.newInstance("", ""));
 
         RecyclerView recyclerView = findViewById(R.id.recView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,6 +121,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void openFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_feed:
+                            Log.i("Feed", "The feed opens at home.");
+                            //openFragment(com.example.aalboxapp.layout.FeedFragment.newInstance("", ""));
+                            return true;
+                        case R.id.navigation_map:
+                            Log.i("Map", "Opens the map.");
+                            //openFragment(com.example.aalboxapp.layout.MapFragment.newInstance("", ""));
+                            return true;
+                    }
+                    return false;
+                }
+            };
 
     public void changeToAddPostView(View view){
         Intent intent = new Intent(this, AddPostActivity.class);
