@@ -1,14 +1,19 @@
 package com.example.aalboxapp;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.example.aalboxapp.ApplicationClass.categories;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
@@ -18,6 +23,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     public void setPosts(List<PostWithInteractions> postWithInteractions){
         this.postWithInteractions = postWithInteractions;
         notifyDataSetChanged();
+
+
     }
 
 
@@ -44,6 +51,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         holder.textViewDescription.setText(currentPost.post.getDescription());
         holder.textViewLike.setText(String.valueOf(currentPost.post.getLike()));
         holder.textViewDislike.setText(String.valueOf(currentPost.post.getDislike()));
+
+        LinearLayout linearLayout = holder.itemView.findViewById(R.id.linearLayoutColor);
+        PostWithInteractions post = postWithInteractions.get(position);
+
+        switch (post.post.getCategory()){
+            case "Historie":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Historie")));
+                break;
+            case "Mad":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Mad")));
+                break;
+            case "Sprog":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Sprog")));
+                break;
+            case "Aktiviteter":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Aktiviteter")));
+                break;
+            case "Normer":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Normer")));
+                break;
+            case "Kultur":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Kultur")));
+                break;
+            default:break;
+        }
+
+
     }
 
     @Override
@@ -53,6 +87,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
     public class PostHolder extends RecyclerView.ViewHolder {
 
+        private LinearLayout linearLayoutColor;
         private TextView textViewLocation;
         private TextView textViewCategory;
         private TextView textViewDescription;
@@ -72,13 +107,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             btnLike = itemView.findViewById(R.id.btn_like);
             btnDislike = itemView.findViewById(R.id.btn_dislike);
 
+
             btnDislike.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (clickListener != null && position!=RecyclerView.NO_POSITION){
-                        clickListener.onItemClicked(postWithInteractions.get(position), false);
+                        PostWithInteractions post = postWithInteractions.get(position);
+                        clickListener.onItemClicked(post, false);
+
                     }
+
                 }
             });
 
@@ -87,7 +126,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (clickListener != null && position!=RecyclerView.NO_POSITION){
-                        clickListener.onItemClicked(postWithInteractions.get(position), true);
+                        PostWithInteractions post = postWithInteractions.get(position);
+                        clickListener.onItemClicked(post, true);
                     }
                 }
             });

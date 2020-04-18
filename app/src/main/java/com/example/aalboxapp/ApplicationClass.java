@@ -14,15 +14,14 @@ public class ApplicationClass extends Application {
 
         //Change to real colors later
         categories = new Hashtable<String, String>();
-        categories.put("Historie", "#gul");
-        categories.put("Mad", "#orange");
-        categories.put("Sprog", "#blå");
-        categories.put("Kultur", "#rød");
-        categories.put("Normer", "#grøn");
-        categories.put("Aktiviteter", "#pink");
+        categories.put("Historie", "#FCD445");
+        categories.put("Mad", "#FC9D54");
+        categories.put("Sprog", "#5298FA");
+        categories.put("Kultur", "#F94949");
+        categories.put("Normer", "#6EE07F");
+        categories.put("Aktiviteter", "#FD94FE");
+        categories.put("default", "#000000");
 
-        //How to get the values... for later work
-        categories.get("Historie");
 
 
     }

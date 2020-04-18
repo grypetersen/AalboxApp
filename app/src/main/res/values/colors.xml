@@ -11,4 +11,6 @@
     <color name="colorPrimaryDark">#030C5B</color>
     <color name="colorPrimaryLight">#030C5B</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="trans">#00FFFFFF</color>
+    <color name="popUp">#C3C3C3</color>
 </resources>
