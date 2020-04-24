@@ -67,27 +67,6 @@
 
 
             <ImageButton
-                android:id="@+id/btn_dislike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/dislike">
-
-            </ImageButton>
-
-            <TextView
-                android:id="@+id/text_view_dislike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_view_description"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="16dp"
-                android:text="dislike">
-
-            </TextView>
-
-            <ImageButton
                 android:id="@+id/btn_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,6 +81,29 @@
 
             <TextView
                 android:id="@+id/text_view_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_view_description"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:text="like">
+
+            </TextView>
+
+            <ImageButton
+                android:id="@+id/btn_dislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/dislike">
+
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/text_view_dislike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_view_description"
