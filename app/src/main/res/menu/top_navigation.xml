@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_home"
-        android:title="HOME" />
-    <item
-        android:id="@+id/navigation_popular"
-        android:title="POPULAR" />
+        android:id="@+id/navigation_all"
+        android:title="ALL" />
     <item
         android:id="@+id/navigation_liked"
         android:title="LIKED" />
+    <item
+        android:id="@+id/navigation_yourposts"
+        android:title="YOUR POSTS" />
 </menu>

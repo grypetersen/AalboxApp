@@ -5,31 +5,39 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     private PostViewModel postViewModel;
     private final List<PostWithInteractions> postWithInteractions = null;
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(this, "click..!!", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        //openFragment(com.example.aalboxapp.fragments.FeedFragment.newInstance("", ""));
 
         RecyclerView recyclerView = findViewById(R.id.recView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -127,24 +134,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
+    // Bottom navigation. "overridePendingTransition" controls the animation.
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.navigation_feed:
                             Log.i("Feed", "The feed opens at home.");
-                            //openFragment(com.example.aalboxapp.layout.FeedFragment.newInstance("", ""));
+                            startActivity(new Intent(MainActivity.this, MainActivity.class));
+                            overridePendingTransition(0,0);
                             return true;
                         case R.id.navigation_map:
                             Log.i("Map", "Opens the map.");
-                            //openFragment(com.example.aalboxapp.layout.MapFragment.newInstance("", ""));
+                            startActivity(new Intent(MainActivity.this, MapActivity.class));
+                            overridePendingTransition(0,0);
                             return true;
                     }
                     return false;
@@ -154,26 +158,5 @@ public class MainActivity extends AppCompatActivity {
     public void changeToAddPostView(View view){
         Intent intent = new Intent(this, AddPostActivity.class);
         startActivity(intent);
-    }
-
-    public void onFilterClicked(View view) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.filter, null);
-
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        popupWindow.showAtLocation(view, Gravity.RIGHT, 60, -239);
-
-        // dismiss the popup window when touched
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                popupWindow.dismiss();
-                return true;
-            }
-        });
     }
 }
