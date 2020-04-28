@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-        popupWindow.showAtLocation(view, Gravity.RIGHT, 60, -239);
+        popupWindow.showAtLocation(view, Gravity.RIGHT, 60, -160);
 
         // dismiss the popup window when touched
         popupView.setOnTouchListener(new View.OnTouchListener() {
