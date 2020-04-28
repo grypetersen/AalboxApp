@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/filterBtn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="220dp"
+        android:background="@color/colorPrimary"
+        android:text="Filter"
+        android:textColor="@color/colorWhite"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/recView"
+        app:layout_constraintEnd_toEndOf="@+id/container_top"
+        app:layout_constraintStart_toStartOf="@+id/container_top"
+        android:onClick="onFilterClicked"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
