@@ -42,6 +42,21 @@ public interface PostDAO {
     LiveData<List<PostWithInteractions>> getAllPostsWithInteractions();
 
 
+    @Transaction
+    @Query("SELECT * FROM Post_table where mobile_id = :mobileID AND category IN (:categories) ORDER BY id DESC")
+    LiveData<List<PostWithInteractions>> getMyPostsWithInteractions(List<String> categories, String mobileID);
+
+    @Transaction
+    @Query("SELECT * FROM Post_table where id IN (SELECT post_id FROM Post_interaction_table where mobile_id = :mobileID AND is_liked = 1) AND category IN (:categories) ORDER BY id DESC")
+    LiveData<List<PostWithInteractions>> getMyLikedPostsWithInteractions(List<String> categories, String mobileID);
+
+    @Transaction
+    @Query("SELECT * FROM Post_table where category IN (:categories) ORDER BY id DESC")
+    LiveData<List<PostWithInteractions>> getPostsWithInteractions(List<String> categories);
+
+
+
+
 
 
 

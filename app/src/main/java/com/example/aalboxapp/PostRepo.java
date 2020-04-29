@@ -56,6 +56,19 @@ public class PostRepo {
         return allPostWithInteractions;
     }
 
+    public LiveData<List<PostWithInteractions>> getPostWithInteractions(PostFilter filter){
+        if(filter.getSelectedTab().equals("ALL")){
+            return postDao.getPostsWithInteractions(filter.getSelectedCategories());
+        }
+        else if(filter.getSelectedTab().equals("MY_POSTS")){
+            return postDao.getMyPostsWithInteractions(filter.getSelectedCategories(), "123");
+        }
+        else if(filter.getSelectedTab().equals("MY_LIKED_POSTS")) {
+            return postDao.getMyLikedPostsWithInteractions(filter.getSelectedCategories(), "123");
+        }
+        else throw new IllegalArgumentException("SelectedTab is not support " + filter.getSelectedTab().toString());
+    }
+
     public void delete(PostInteraction postInteraction){new DeletePostInteractionAsync(postDao).execute(postInteraction);}
     private static class DeletePostInteractionAsync extends AsyncTask<PostInteraction,Void,Void> {
         private PostDAO postDAO;

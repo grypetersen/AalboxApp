@@ -40,7 +40,7 @@ public abstract class PostDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             postDAO.addPost(new Post("Nytorv", "Mad", "Burgerking er nice", 0,0, "123"));
-            postDAO.addPost(new Post("Vejgaard", "Kultur", "Vejgaard dollar er 50kr",0,0,"123"));
+            postDAO.addPost(new Post("Vejgaard", "Kultur", "Vejgaard dollar er 50kr",0,0,"456"));
             postDAO.addPost(new Post("Øgaden", "Kultur", "Se den flotte natur",0,0,"123"));
             postDAO.addPost(new Post("Nytorv", "Historie", "Nytorv var for 100 år siden...",0,0,"123"));
             postDAO.addPost(new Post("Nytorv", "Normer", "Danskere flager altid for at fejre eller mindes om noget. Se bare omkring",0,0,"123"));
