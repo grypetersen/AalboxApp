@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.media.Image;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -22,23 +22,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
-
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import static android.graphics.Color.RED;
+import static android.graphics.Color.YELLOW;
+import static android.graphics.Color.red;
 import static com.example.aalboxapp.ApplicationClass.categories;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "Information";
     BottomNavigationView bottomNavigation;
     private PostViewModel postViewModel;
     private String currentTab = "ALL";
@@ -46,6 +44,27 @@ public class MainActivity extends AppCompatActivity {
 
     private Hashtable<String, Boolean> categoryStates = new Hashtable<String, Boolean>() {{put("Historie", true); put("Mad", true); put("Sprog", true); put("Kultur", true); put("Normer", true); put("Aktiviteter", true);}};
 
+    // Creates NFC-button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // Handles NFC-button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nfcBtn) {
+            Log.i(TAG, "NFC Button Clicked!");
+            // do something here
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+/*
+    Ved ikke, hvad det her er?
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -58,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-
-
         RecyclerView recyclerView = findViewById(R.id.recView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -85,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
 
-        //DETTE HER SKAL BRUGE TIL AT FILTERE I TABS
+        //DETTE HER SKAL BRUGES TIL AT FILTERE I TABS
         List<String> categoryStrings = new ArrayList<>();
         for (String key:categoryStates.keySet()) {
             if(categoryStates.get(key)){
@@ -95,15 +114,28 @@ public class MainActivity extends AppCompatActivity {
         postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
 
         //HERNED TIL ER DET BARE LÆKKERT
-
         View topNavigation =  findViewById(R.id.top_navigation);
-        BottomNavigationItemView allBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_all);
-        BottomNavigationItemView likedBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_liked);
-        BottomNavigationItemView yourpostsBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_yourposts);
+        final BottomNavigationItemView allBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_all);
+        final BottomNavigationItemView likedBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_liked);
+        final BottomNavigationItemView yourpostsBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_yourposts);
+
+        // TO MAKE THE ITEM SEEM ACTIVE
+        allBtn.setBackgroundColor(YELLOW);
+        likedBtn.setBackgroundColor(RED);
+        yourpostsBtn.setBackgroundColor(RED);
+
 
         allBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
+                Log.i("TopNavigation", "The 'All'-Button clicked!");
+                allBtn.setBackgroundColor(YELLOW);
+                likedBtn.setBackgroundColor(RED);
+                yourpostsBtn.setBackgroundColor(RED);
+                overridePendingTransition(0,0);
+
+
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
                     if(categoryStates.get(key)){
@@ -118,6 +150,10 @@ public class MainActivity extends AppCompatActivity {
         likedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                allBtn.setBackgroundColor(RED);
+                likedBtn.setBackgroundColor(YELLOW);
+                yourpostsBtn.setBackgroundColor(RED);
+                Log.i("TopNavigation", "The 'Liked'-Button clicked!");
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
                     if(categoryStates.get(key)){
@@ -132,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
         yourpostsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                allBtn.setBackgroundColor(RED);
+                likedBtn.setBackgroundColor(RED);
+                yourpostsBtn.setBackgroundColor(YELLOW);
+                Log.i("TopNavigation", "The 'Your Posts'-Button clicked!");
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
                     if(categoryStates.get(key)){
@@ -230,18 +270,19 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.navigation_feed:
                             Log.i("Feed", "The feed opens at home.");
-                            startActivity(new Intent(MainActivity.this, MainActivity.class));
                             overridePendingTransition(0,0);
+                            startActivity(new Intent(MainActivity.this, MainActivity.class));
                             return true;
                         case R.id.navigation_map:
                             Log.i("Map", "Opens the map.");
-                            startActivity(new Intent(MainActivity.this, MapActivity.class));
                             overridePendingTransition(0,0);
+                            startActivity(new Intent(MainActivity.this, MapFragment.class));
                             return true;
                     }
                     return false;
                 }
             };
+
 
     public void onFilterClicked(View view) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);

@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Top Navigation / Starts -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container_top"
+        >
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/top_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/colorPrimary"
+            app:itemTextColor="@color/colorWhite"
+            app:menu="@menu/top_navigation"
+            app:elevation="8dp"
+            />
+    </FrameLayout>
+    <!-- Top Navigation / Ends -->
+
+    <!-- Filter Button / Starts -->
     <Button
         android:id="@+id/filterBtn"
         android:layout_width="100dp"
@@ -14,27 +35,29 @@
         android:layout_marginTop="70dp"
         android:background="@color/colorPrimary"
         android:onClick="onFilterClicked"
-        android:text="Filter"
+        android:text="@string/filter"
         android:textColor="@color/colorWhite"
-        android:textSize="10dp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/recView"
         app:layout_constraintEnd_toEndOf="@+id/container_top"
         app:layout_constraintStart_toStartOf="@+id/container_top"
         app:layout_constraintTop_toTopOf="@+id/relativeLayout" />
+    <!-- Filter Button / Ends  -->
+<!--
+    <ImageButton
+    android:id="@+id/toolbar_button"
+    style="@style/Widget.AppCompat.Button.Borderless"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_alignParentEnd="true"
+    android:src="@drawable/ic_nfc" />
+-->
 
+    <!-- Bottom Navigation / Starts -->
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
-        <ImageButton
-            android:id="@+id/toolbar_button"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_nfc" />
 
         <FrameLayout
             android:id="@+id/container_bottom"
@@ -50,28 +73,13 @@
                 app:itemTextAppearanceActive="@style/navTextActive"
                 app:itemTextAppearanceInactive="@style/navTextInactive"
                 app:itemTextColor="@color/colorWhite"
+                app:elevation="8dp"
                 app:menu="@menu/bottom_navigation" />
         </FrameLayout>
-
     </RelativeLayout>
+    <!-- Bottom Navigation / Ends -->
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container_top"
-        >
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/top_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="@color/colorPrimary"
-            app:menu="@menu/top_navigation"
-            app:itemTextColor="@color/colorWhite"
-            />
-    </FrameLayout>
-
+    <!-- Post Layout / Starts -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recView"
         android:layout_width="316dp"
@@ -83,16 +91,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.179"
         tools:listitem="@layout/post_row" />
+    <!-- Post Layout / Ends -->
 
+    <!-- Add Post / Starts -->
     <Button
         android:id="@+id/addPostBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tilføj post"
+        android:text="@string/add_post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recView"
         android:onClick="changeToAddPostView"/>
+    <!-- Add Post / Ends -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

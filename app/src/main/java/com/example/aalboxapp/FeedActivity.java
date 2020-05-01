@@ -19,7 +19,7 @@ public class FeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all);
+        setContentView(R.layout.fragment_all);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -35,7 +35,7 @@ public class FeedActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.navigation_map:
                             Log.i("Map", "Opens the map.");
-                            startActivity(new Intent(FeedActivity.this, MapActivity.class));
+                            startActivity(new Intent(FeedActivity.this, MapFragment.class));
                             overridePendingTransition(0, 0);
                             return true;
                         case R.id.navigation_feed:

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigation_all"
-        android:title="ALL" />
+        android:title="@string/top_menu_first" />
     <item
         android:id="@+id/navigation_liked"
-        android:title="LIKED" />
+        android:title="@string/top_menu_second" />
     <item
         android:id="@+id/navigation_yourposts"
-        android:title="YOUR POSTS" />
+        android:title="@string/top_menu_third" />
 </menu>

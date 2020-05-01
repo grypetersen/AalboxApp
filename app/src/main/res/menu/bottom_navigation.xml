@@ -2,12 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_feed"
-        android:title="FEED">
+        android:title="@string/bottom_menu_first">
     </item>
 
     <item
         android:id="@+id/navigation_map"
-        android:title="MAP"
-        >
+        android:title="@string/bottom_menu_second">
     </item>
 </menu>

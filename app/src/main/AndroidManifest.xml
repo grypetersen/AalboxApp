@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AddPostActivity"></activity>
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MapFragment"></activity>
         <activity android:name=".FeedActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

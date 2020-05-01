@@ -8,14 +8,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MapActivity extends AppCompatActivity {
+public class MapFragment extends AppCompatActivity {
 
     BottomNavigationView bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.fragment_map);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -28,12 +28,12 @@ public class MapActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.navigation_map:
                             Log.i("Map", "Opens the map.");
-                            startActivity(new Intent(MapActivity.this, MapActivity.class));
+                            startActivity(new Intent(MapFragment.this, MapFragment.class));
                             overridePendingTransition(0,0);
                             return true;
                         case R.id.navigation_feed:
                             Log.i("Feed", "The feed opens at home.");
-                            startActivity(new Intent(MapActivity.this, MainActivity.class));
+                            startActivity(new Intent(MapFragment.this, MainActivity.class));
                             overridePendingTransition(0,0);
                             return true;
                     }
