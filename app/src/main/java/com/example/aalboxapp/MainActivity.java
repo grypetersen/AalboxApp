@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
         boolean focusable = false; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-        popupWindow.showAtLocation(view, Gravity.RIGHT, 60, -80);
+        popupWindow.showAtLocation(view, Gravity.RIGHT, 30, -128);
 
         final ImageButton historyBtn = (ImageButton)popupView.findViewById(R.id.historyBtn);
         final ImageButton normBtn = (ImageButton)popupView.findViewById(R.id.normBtn);
