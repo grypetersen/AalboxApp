@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
 
-        //DETTE HER SKAL BRUGES TIL AT FILTERE I TABS
+
         List<String> categoryStrings = new ArrayList<>();
         for (String key:categoryStates.keySet()) {
             if(categoryStates.get(key)){
@@ -113,16 +113,15 @@ public class MainActivity extends AppCompatActivity {
         }
         postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
 
-        //HERNED TIL ER DET BARE LÆKKERT
         View topNavigation =  findViewById(R.id.top_navigation);
         final BottomNavigationItemView allBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_all);
         final BottomNavigationItemView likedBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_liked);
         final BottomNavigationItemView yourpostsBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_yourposts);
 
         // TO MAKE THE ITEM SEEM ACTIVE
-        allBtn.setBackgroundColor(YELLOW);
-        likedBtn.setBackgroundColor(RED);
-        yourpostsBtn.setBackgroundColor(RED);
+        allBtn.setBackgroundColor(Color.parseColor("#02083C"));
+        likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+        yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
 
 
         allBtn.setOnClickListener(new View.OnClickListener() {
@@ -130,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("TopNavigation", "The 'All'-Button clicked!");
-                allBtn.setBackgroundColor(YELLOW);
-                likedBtn.setBackgroundColor(RED);
-                yourpostsBtn.setBackgroundColor(RED);
+                allBtn.setBackgroundColor(Color.parseColor("#02083C"));
+                likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
                 overridePendingTransition(0,0);
 
 
@@ -150,9 +149,9 @@ public class MainActivity extends AppCompatActivity {
         likedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allBtn.setBackgroundColor(RED);
-                likedBtn.setBackgroundColor(YELLOW);
-                yourpostsBtn.setBackgroundColor(RED);
+                allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                likedBtn.setBackgroundColor(Color.parseColor("#02083C"));
+                yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
                 Log.i("TopNavigation", "The 'Liked'-Button clicked!");
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
@@ -168,9 +167,9 @@ public class MainActivity extends AppCompatActivity {
         yourpostsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allBtn.setBackgroundColor(RED);
-                likedBtn.setBackgroundColor(RED);
-                yourpostsBtn.setBackgroundColor(YELLOW);
+                allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                yourpostsBtn.setBackgroundColor(Color.parseColor("#02083C"));
                 Log.i("TopNavigation", "The 'Your Posts'-Button clicked!");
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
