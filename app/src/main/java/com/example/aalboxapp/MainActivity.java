@@ -58,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.nfcBtn) {
             Log.i(TAG, "NFC Button Clicked!");
-            // do something here
+
+            Intent intent = new Intent(this, NFCAcitivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
