@@ -122,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
 
         // TO MAKE THE ITEM SEEM ACTIVE
         allBtn.setBackgroundColor(Color.parseColor("#02083C"));
+        allBtn.setPadding(0,0,0,5);
         likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+        likedBtn.setPadding(0,0,0,0);
         yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-
+        yourpostsBtn.setPadding(0,0,0,0);
 
         allBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
@@ -132,10 +134,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("TopNavigation", "The 'All'-Button clicked!");
                 allBtn.setBackgroundColor(Color.parseColor("#02083C"));
+                allBtn.setPadding(0,0,0,5);
                 likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                likedBtn.setPadding(0,0,0,0);
                 yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                yourpostsBtn.setPadding(0,0,0,0);
                 overridePendingTransition(0,0);
-
 
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
@@ -151,10 +155,15 @@ public class MainActivity extends AppCompatActivity {
         likedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                likedBtn.setBackgroundColor(Color.parseColor("#02083C"));
-                yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
                 Log.i("TopNavigation", "The 'Liked'-Button clicked!");
+                allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                allBtn.setPadding(0,0,0,0);
+                likedBtn.setBackgroundColor(Color.parseColor("#02083C"));
+                likedBtn.setPadding(0,0,0,5);
+                yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                yourpostsBtn.setPadding(0,0,0,0);
+                overridePendingTransition(0,0);
+
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
                     if(categoryStates.get(key)){
@@ -169,10 +178,15 @@ public class MainActivity extends AppCompatActivity {
         yourpostsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                yourpostsBtn.setBackgroundColor(Color.parseColor("#02083C"));
                 Log.i("TopNavigation", "The 'Your Posts'-Button clicked!");
+                allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                allBtn.setPadding(0,0,0,0);
+                likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
+                likedBtn.setPadding(0,0,0,0);
+                yourpostsBtn.setBackgroundColor(Color.parseColor("#02083C"));
+                yourpostsBtn.setPadding(0,0,0,5);
+                overridePendingTransition(0,0);
+
                 List<String> categoryStrings = new ArrayList<>();
                 for (String key:categoryStates.keySet()) {
                     if(categoryStates.get(key)){
@@ -294,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
         boolean focusable = false; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-        popupWindow.showAtLocation(view, Gravity.RIGHT, 30, -128);
+        popupWindow.showAtLocation(view, Gravity.RIGHT, 22, -118);
 
         final ImageButton historyBtn = (ImageButton)popupView.findViewById(R.id.historyBtn);
         final ImageButton normBtn = (ImageButton)popupView.findViewById(R.id.normBtn);

@@ -143,8 +143,9 @@
 
     <Button
         android:id="@+id/saveFilterBtn"
-        android:layout_width="match_parent"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="save" />
 
 
