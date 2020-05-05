@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import static android.graphics.Color.RED;
-import static android.graphics.Color.YELLOW;
 import static android.graphics.Color.red;
 import static com.example.aalboxapp.ApplicationClass.categories;
 
@@ -59,28 +57,13 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.nfcBtn) {
             Log.i(TAG, "NFC Button Clicked!");
 
-            Intent intent = new Intent(this, NFCAcitivity.class);
+            Intent intent = new Intent(this, NFCActivity.class);
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
-/*
-    Ved ikke, hvad det her er?
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Toast.makeText(this, "click..!!", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
- */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -287,11 +270,13 @@ public class MainActivity extends AppCompatActivity {
                             Log.i("Feed", "The feed opens at home.");
                             overridePendingTransition(0,0);
                             startActivity(new Intent(MainActivity.this, MainActivity.class));
+                            overridePendingTransition(0,0);
                             return true;
                         case R.id.navigation_map:
                             Log.i("Map", "Opens the map.");
                             overridePendingTransition(0,0);
                             startActivity(new Intent(MainActivity.this, MapFragment.class));
+                            overridePendingTransition(0,0);
                             return true;
                     }
                     return false;

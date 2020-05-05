@@ -6,17 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class NFCAcitivity extends AppCompatActivity {
+public class NFCActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_n_f_c_acitivity);
+        setContentView(R.layout.activity_nfc);
     }
 
     public void goBackToFeed(View v){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
+        overridePendingTransition(0,0);
     }
 }
