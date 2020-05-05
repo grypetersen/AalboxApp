@@ -14,6 +14,7 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="trans">#00FFFFFF</color>
     <color name="popUp">#C3C3C3</color>
+    <color name="categoryNone">#C6C6C6</color>
 
     <color name="Active">#FFFFFF</color>
     <color name="InActive">#FD94FE</color>

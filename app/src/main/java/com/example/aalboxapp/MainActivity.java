@@ -28,8 +28,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-
-import static android.graphics.Color.red;
 import static com.example.aalboxapp.ApplicationClass.categories;
 
 

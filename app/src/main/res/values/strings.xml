@@ -10,4 +10,11 @@
     <string name="filter">Filter</string>
     <string name="add_post">Tilføj post</string>
     <string name="plus">+</string>
+    <string name="Choose_Category"><b>Select a Category for Your Post</b></string>
+    <string name="culture">Culture</string>
+    <string name="history">History</string>
+    <string name="activities">Activities</string>
+    <string name="language">Language</string>
+    <string name="norms">Norms</string>
+    <string name="food">Food</string>
 </resources>
