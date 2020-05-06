@@ -17,6 +17,6 @@ public class NFCActivity extends AppCompatActivity {
     public void goBackToFeed(View v){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
+        overridePendingTransition(0,0);
     }
 }

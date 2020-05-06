@@ -7,96 +7,227 @@
     tools:context=".AddPostActivity"
     android:orientation="vertical">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="470dp"
-            android:layout_margin="20dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="40dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-
-                    <EditText
-                        android:id="@+id/text_view_insert_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:hint="Indsæt lokation"
-                        android:inputType="textPersonName" />
-
-                    <EditText
-                        android:id="@+id/text_view_insert_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/text_view_insert_location"
-                        android:layout_margin="10dp"
-                        android:hint="Indsæt kategori"
-                        android:inputType="textPersonName" />
-
-                    <EditText
-                        android:id="@+id/text_view_insert_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/text_view_insert_category"
-                        android:layout_margin="10dp"
-                        android:hint="Indsæt beskrivelse"
-                        android:inputType="textPersonName" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:gravity="right"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/linkBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="@color/trans"
-                            android:gravity="end"
-                            android:src="@drawable/link"
-                            android:onClick="onLinkClicked"/>
-
-                        <ImageButton
-                            android:id="@+id/cameraBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="@color/trans"
-                            android:gravity="end"
-                            android:src="@drawable/photo"
-                            android:onClick="startCamera"/>
-
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/addPostBtn"
+        <ImageButton
+            android:id="@+id/cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="addPostToFeed"
-            android:text="Add post" />
+            android:layout_margin="0dp"
+            android:background="@drawable/ic_cancel"
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            android:gravity="right"
+            android:onClick="onCancelButton" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/topbarCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_marginRight="0dp"
+                    android:background="@color/categoryNone"
+                    android:gravity="top"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/location_icon"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp"
+                        android:layout_weight="0"
+                        android:background="@color/trans"
+                        android:gravity="right"
+                        android:src="@drawable/ic_pin" />
+
+                    <TextView
+                        android:id="@+id/locationText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:text="Location" />
+
+                    <TextView
+                        android:id="@+id/CategoryText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_weight="0"
+                        android:text=""
+                        android:textAlignment="textEnd" />
+
+                    <ImageView
+                        android:id="@+id/category_icon"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp"
+                        android:layout_weight="0"
+                        android:background="@color/trans"
+                        android:gravity="right"
+                        android:src="@drawable/ic_category" />
+
+                </LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/text_view_insert_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:padding="10dp"
+                    android:inputType="text|textMultiLine"
+                    android:gravity="top"
+                    android:background="@null"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0dp"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/linkBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_link"
+                        android:gravity="end"
+                        android:onClick="onLinkClicked" />
+
+                    <ImageButton
+                        android:id="@+id/cameraBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_camera"
+                        android:gravity="end"
+                        android:onClick="startCamera" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+    <RelativeLayout
+        android:id="@+id/selectCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/chooseACategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:textAllCaps="true"
+            android:text="@string/Choose_Category"
+            android:textColor="@color/colorPrimary">
+
+        </TextView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/categoryButtons"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/cultureBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/ic_culture_btn_inactive"
+            android:onClick="onCategoryClicked" />
+
+        <ImageButton
+            android:id="@+id/historyBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/ic_history_btn_inactive"
+            android:onClick="onCategoryClicked" />
+
+        <ImageButton
+            android:id="@+id/activitiesBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/ic_activities_btn_inactive"
+            android:onClick="onCategoryClicked" />
+
+        <ImageButton
+            android:id="@+id/languagesBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/ic_language_btn_inactive"
+            android:onClick="onCategoryClicked" />
+
+        <ImageButton
+            android:id="@+id/normsBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/ic_norms_btn_inactive"
+            android:gravity="end"
+            android:onClick="onCategoryClicked" />
+
+        <ImageButton
+            android:id="@+id/foodBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:background="@drawable/ic_food_btn_inactive"
+            android:gravity="end"
+            android:onClick="onCategoryClicked" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addPostBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:onClick="addPostToFeed"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:text="Add post" />
 
 </LinearLayout>

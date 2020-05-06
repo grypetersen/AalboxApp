@@ -1,21 +1,33 @@
 package com.example.aalboxapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.*;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddPostActivity extends AppCompatActivity {
-
     private PostViewModel postViewModel;
     private static final int CAMERA_REQUEST = 1888;
 
@@ -24,18 +36,153 @@ public class AddPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
         postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
+
+        // Change the location randomly
+        TextView locationText = (TextView)findViewById(R.id.locationText);
+        locationText.setText(getRandomString());
+        }
+
+    static String getRandomString(){
+        int r = (int) (Math.random()*9);
+        String location = new String [] {
+                "Nytorv",
+                "Budolfi Plads",
+                "Eternitten",
+                "AAU Campus",
+                "Cassiopeia",
+                "Østre Anlæg",
+                "Musikkens Hus",
+                "Jomfru Ane Gade"}[r];
+
+        return location;
     }
 
+    static String getCategoryString(){
+        String category = "Test";
+
+        return category;
+    }
     public void addPostToFeed(View v){
-        EditText location = (EditText)findViewById(R.id.text_view_insert_location);
-        EditText category = (EditText)findViewById(R.id.text_view_insert_category);
         EditText description = (EditText)findViewById(R.id.text_view_insert_description);
 
-        Post post = new Post(String.valueOf(location.getText()), String.valueOf(category.getText()), String.valueOf(description.getText()),0,0,"123");
+        Post post = new Post(String.valueOf(getRandomString()), String.valueOf(getCategoryString()), String.valueOf(description.getText()),0,0,"123");
         postViewModel.insert(post);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void onCategoryClicked(View view) {
+        final ImageButton cultureBtn = (ImageButton)findViewById(R.id.cultureBtn);
+        final ImageButton historyBtn = (ImageButton)findViewById(R.id.historyBtn);
+        final ImageButton activityBtn = (ImageButton)findViewById(R.id.activitiesBtn);
+        final ImageButton languageBtn = (ImageButton)findViewById(R.id.languagesBtn);
+        final ImageButton normsBtn = (ImageButton)findViewById(R.id.normsBtn);
+        final ImageButton foodBtn = (ImageButton)findViewById(R.id.foodBtn);
+        final TextView category = (TextView)findViewById(R.id.CategoryText);
+        final ImageView categoryImg = (ImageView)findViewById(R.id.category_icon);
+
+        cultureBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Information", "The Culture button was clicked");
+                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                ln.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                category.setText(R.string.culture);
+                categoryImg.setImageResource(R.drawable.ic_culture_icon);
+                cultureBtn.setBackground(getDrawable(R.drawable.ic_culture_btn));
+                historyBtn.setBackground(getDrawable(R.drawable.ic_history_btn_inactive));
+                activityBtn.setBackground(getDrawable(R.drawable.ic_activities_btn_inactive));
+                languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn_inactive));
+                normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn_inactive));
+                foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn_inactive));
+            }
+        });
+
+        historyBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Information", "The History button was clicked");
+                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                ln.setBackgroundColor(getResources().getColor(R.color.colorYellow));
+                category.setText(R.string.history);
+                categoryImg.setImageResource(R.drawable.ic_history_icon);
+                cultureBtn.setBackground(getDrawable(R.drawable.ic_culture_btn_inactive));
+                historyBtn.setBackground(getDrawable(R.drawable.ic_history_btn));
+                activityBtn.setBackground(getDrawable(R.drawable.ic_activities_btn_inactive));
+                languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn_inactive));
+                normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn_inactive));
+                foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn_inactive));
+            }
+        });
+
+        activityBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Information", "The Activities button was clicked");
+                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                ln.setBackgroundColor(getResources().getColor(R.color.colorPink));
+                category.setText(R.string.activities);
+                categoryImg.setImageResource(R.drawable.ic_activites_icon);
+                cultureBtn.setBackground(getDrawable(R.drawable.ic_culture_btn_inactive));
+                historyBtn.setBackground(getDrawable(R.drawable.ic_history_btn_inactive));
+                activityBtn.setBackground(getDrawable(R.drawable.ic_activities_btn));
+                languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn_inactive));
+                normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn_inactive));
+                foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn_inactive));
+            }
+        });
+
+        languageBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Information", "The Languages button was clicked");
+                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                ln.setBackgroundColor(getResources().getColor(R.color.colorBlue));
+                category.setText(R.string.language);
+                categoryImg.setImageResource(R.drawable.ic_languages_icon);
+                cultureBtn.setBackground(getDrawable(R.drawable.ic_culture_btn_inactive));
+                historyBtn.setBackground(getDrawable(R.drawable.ic_history_btn_inactive));
+                activityBtn.setBackground(getDrawable(R.drawable.ic_activities_btn_inactive));
+                languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn));
+                normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn_inactive));
+                foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn_inactive));
+            }
+        });
+
+        normsBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Information", "The Norms button was clicked");
+                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                ln.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                category.setText(R.string.norms);
+                categoryImg.setImageResource(R.drawable.ic_norms_icon);
+                cultureBtn.setBackground(getDrawable(R.drawable.ic_culture_btn_inactive));
+                historyBtn.setBackground(getDrawable(R.drawable.ic_history_btn_inactive));
+                activityBtn.setBackground(getDrawable(R.drawable.ic_activities_btn_inactive));
+                languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn_inactive));
+                normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn));
+                foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn_inactive));
+            }
+        });
+
+        foodBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("Information", "The Food button was clicked");
+                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                ln.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+                category.setText(R.string.food);
+                categoryImg.setImageResource(R.drawable.ic_food_icon);
+                cultureBtn.setBackground(getDrawable(R.drawable.ic_culture_btn_inactive));
+                historyBtn.setBackground(getDrawable(R.drawable.ic_history_btn_inactive));
+                activityBtn.setBackground(getDrawable(R.drawable.ic_activities_btn_inactive));
+                languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn_inactive));
+                normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn_inactive));
+                foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn));
+            }
+        });
     }
 
     public void onLinkClicked(View view) {

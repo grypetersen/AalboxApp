@@ -63,21 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-/*
-    Ved ikke, hvad det her er?
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Toast.makeText(this, "click..!!", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
- */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -296,11 +282,13 @@ public class MainActivity extends AppCompatActivity {
                             Log.i("Feed", "The feed opens at home.");
                             overridePendingTransition(0,0);
                             startActivity(new Intent(MainActivity.this, MainActivity.class));
+                            overridePendingTransition(0,0);
                             return true;
                         case R.id.navigation_map:
                             Log.i("Map", "Opens the map.");
                             overridePendingTransition(0,0);
                             startActivity(new Intent(MainActivity.this, MapFragment.class));
+                            overridePendingTransition(0,0);
                             return true;
                     }
                     return false;
