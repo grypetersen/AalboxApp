@@ -22,16 +22,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-
-import static android.graphics.Color.RED;
-import static android.graphics.Color.YELLOW;
-import static android.graphics.Color.red;
 import static com.example.aalboxapp.ApplicationClass.categories;
 
 
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private String currentTab = "ALL";
     private final List<PostWithInteractions> postWithInteractions = null;
 
-    private Hashtable<String, Boolean> categoryStates = new Hashtable<String, Boolean>() {{put("Historie", true); put("Mad", true); put("Sprog", true); put("Kultur", true); put("Normer", true); put("Aktiviteter", true);}};
+    private Hashtable<String, Boolean> categoryStates = new Hashtable<String, Boolean>() {{put("History", true); put("Food", true); put("Language", true); put("Culture", true); put("Norms", true); put("Activities", true);}};
 
     // Creates NFC-button
     @Override
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.nfcBtn) {
             Log.i(TAG, "NFC Button Clicked!");
 
-            Intent intent = new Intent(this, NFCAcitivity.class);
+            Intent intent = new Intent(this, NFCActivity.class);
             startActivity(intent);
         }
 
@@ -76,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -87,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences myPrefsFile = getApplicationContext().getSharedPreferences("MyPrefsFile", Activity.MODE_PRIVATE);
-        categoryStates.replace("Historie", myPrefsFile.getBoolean("Historie", true));
-        categoryStates.replace("Kultur", myPrefsFile.getBoolean("Kultur", true));
-        categoryStates.replace("Normer", myPrefsFile.getBoolean("Normer", true));
-        categoryStates.replace("Aktiviteter", myPrefsFile.getBoolean("Aktiviteter", true));
-        categoryStates.replace("Sprog", myPrefsFile.getBoolean("Sprog", true));
-        categoryStates.replace("Mad", myPrefsFile.getBoolean("Mad", true));
+        categoryStates.replace("History", myPrefsFile.getBoolean("History", true));
+        categoryStates.replace("Culture", myPrefsFile.getBoolean("Culture", true));
+        categoryStates.replace("Norms", myPrefsFile.getBoolean("Norms", true));
+        categoryStates.replace("Activities", myPrefsFile.getBoolean("Activities", true));
+        categoryStates.replace("Language", myPrefsFile.getBoolean("Language", true));
+        categoryStates.replace("Food", myPrefsFile.getBoolean("Food", true));
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -119,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         final BottomNavigationItemView allBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_all);
         final BottomNavigationItemView likedBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_liked);
         final BottomNavigationItemView yourpostsBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_yourposts);
+        final TextView yourLikeTxtView = (TextView)findViewById(R.id.yourliketxtview);
 
         // TO MAKE THE ITEM SEEM ACTIVE
         allBtn.setBackgroundColor(Color.parseColor("#02083C"));
@@ -149,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 currentTab = "ALL";
                 postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+                yourLikeTxtView.setVisibility(View.INVISIBLE);
+
             }
         });
 
@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 currentTab = "MY_LIKED_POSTS";
                 postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+                yourLikeTxtView.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -195,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 currentTab = "MY_POSTS";
                 postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+                yourLikeTxtView.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -202,6 +205,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<PostWithInteractions> postWithInteractions) {
                 postAdapter.setPosts(postWithInteractions);
+
+                int count = 0;
+                for (PostWithInteractions post:postWithInteractions) {
+                    count += post.post.getLike();
+                }
+                yourLikeTxtView.setText("Your likes: " + String.valueOf(count));
             }
         });
 
@@ -318,18 +327,18 @@ public class MainActivity extends AppCompatActivity {
         final ImageButton langBtn = (ImageButton)popupView.findViewById(R.id.langBtn);
         Button saveBtn = (Button)popupView.findViewById(R.id.saveFilterBtn);
 
-        handleCategoryColor("Historie", historyBtn);
-        handleCategoryColor("Kultur", cultureBtn);
-        handleCategoryColor("Normer", normBtn);
-        handleCategoryColor("Aktiviteter", activityBtn);
-        handleCategoryColor("Mad", foodBtn);
-        handleCategoryColor("Sprog", langBtn);
+        handleCategoryColor("History", historyBtn);
+        handleCategoryColor("Culture", cultureBtn);
+        handleCategoryColor("Norms", normBtn);
+        handleCategoryColor("Activities", activityBtn);
+        handleCategoryColor("Food", foodBtn);
+        handleCategoryColor("Language", langBtn);
 
         historyBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                handleCategoryClicked("Historie", historyBtn);
+                handleCategoryClicked("History", historyBtn);
 
             }
         });
@@ -338,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                handleCategoryClicked("Normer", normBtn);
+                handleCategoryClicked("Norms", normBtn);
             }
         });
 
@@ -346,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                handleCategoryClicked("Kultur", cultureBtn);
+                handleCategoryClicked("Culture", cultureBtn);
             }
         });
 
@@ -354,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                handleCategoryClicked("Aktiviteter", activityBtn);
+                handleCategoryClicked("Activities", activityBtn);
             }
         });
 
@@ -362,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                handleCategoryClicked("Mad", foodBtn);
+                handleCategoryClicked("Food", foodBtn);
             }
         });
 
@@ -370,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                handleCategoryClicked("Sprog", langBtn);
+                handleCategoryClicked("Language", langBtn);
             }
         });
 
@@ -380,12 +389,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences myPrefsFile = getApplicationContext().getSharedPreferences("MyPrefsFile", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPrefsFile.edit();
-                editor.putBoolean("Historie", categoryStates.get("Historie"));
-                editor.putBoolean("Normer", categoryStates.get("Normer"));
-                editor.putBoolean("Aktiviteter", categoryStates.get("Aktiviteter"));
-                editor.putBoolean("Mad", categoryStates.get("Mad"));
-                editor.putBoolean("Sprog", categoryStates.get("Sprog"));
-                editor.putBoolean("Kultur", categoryStates.get("Kultur"));
+                editor.putBoolean("History", categoryStates.get("History"));
+                editor.putBoolean("Norms", categoryStates.get("Norms"));
+                editor.putBoolean("Activities", categoryStates.get("Activities"));
+                editor.putBoolean("Food", categoryStates.get("Food"));
+                editor.putBoolean("Language", categoryStates.get("Language"));
+                editor.putBoolean("Culture", categoryStates.get("Culture"));
                 editor.apply();
 
                 List<String> categoryStrings = new ArrayList<>();

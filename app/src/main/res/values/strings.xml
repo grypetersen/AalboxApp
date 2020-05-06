@@ -7,7 +7,8 @@
     <string name="top_menu_third">YOUR POSTS</string>
     <string name="bottom_menu_first">FEED</string>
     <string name="bottom_menu_second">MAP</string>
-    <string name="filter">Filter</string>
+    <string name="filter">Filter post</string>
     <string name="add_post">Tilføj post</string>
     <string name="plus">+</string>
+    <string name="yourlikes">Your likes: 0</string>
 </resources>

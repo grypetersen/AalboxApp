@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.example.aalboxapp.ApplicationClass.categories;
@@ -56,23 +55,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         PostWithInteractions post = postWithInteractions.get(position);
 
         switch (post.post.getCategory()){
-            case "Historie":
-                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Historie")));
+            case "History":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("History")));
                 break;
-            case "Mad":
-                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Mad")));
+            case "Food":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Food")));
                 break;
-            case "Sprog":
-                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Sprog")));
+            case "Language":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Language")));
                 break;
-            case "Aktiviteter":
-                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Aktiviteter")));
+            case "Activities":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Activities")));
                 break;
-            case "Normer":
-                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Normer")));
+            case "Norms":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Norms")));
                 break;
-            case "Kultur":
-                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Kultur")));
+            case "Culture":
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("Culture")));
                 break;
             default:break;
         }
