@@ -73,6 +73,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             case "Culture":
                 linearLayout.setBackgroundColor(Color.parseColor(categories.get("Culture")));
                 break;
+            case "None":
+                linearLayout.setBackgroundColor(Color.parseColor("#C6C6C6"));
+                break;
             default:break;
         }
 

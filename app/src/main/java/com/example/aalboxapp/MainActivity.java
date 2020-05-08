@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private String currentTab = "ALL";
     private final List<PostWithInteractions> postWithInteractions = null;
 
-    private Hashtable<String, Boolean> categoryStates = new Hashtable<String, Boolean>() {{put("History", true); put("Food", true); put("Language", true); put("Culture", true); put("Norms", true); put("Activities", true);}};
+    private Hashtable<String, Boolean> categoryStates = new Hashtable<String, Boolean>() {{put("History", true); put("Food", true); put("Language", true); put("Culture", true); put("Norms", true); put("Activities", true); put("None", true);}};
 
     // Creates NFC-button
     @Override
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         categoryStates.replace("Activities", myPrefsFile.getBoolean("Activities", true));
         categoryStates.replace("Language", myPrefsFile.getBoolean("Language", true));
         categoryStates.replace("Food", myPrefsFile.getBoolean("Food", true));
+        categoryStates.replace("None", myPrefsFile.getBoolean("None", true));
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);

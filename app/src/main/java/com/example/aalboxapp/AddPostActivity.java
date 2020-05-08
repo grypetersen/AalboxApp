@@ -30,21 +30,24 @@ import java.util.List;
 public class AddPostActivity extends AppCompatActivity {
     private PostViewModel postViewModel;
     private static final int CAMERA_REQUEST = 1888;
+    private static String randomString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
         postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
+        randomString = getRandomString();
 
         // Change the location randomly
-        TextView locationText = (TextView)findViewById(R.id.locationText);
-        locationText.setText(getRandomString());
-        }
+        TextView locationText = (TextView) findViewById(R.id.locationText);
+        locationText.setText(randomString);
+    }
 
-    static String getRandomString(){
-        int r = (int) (Math.random()*8);
-        String location = new String [] {
+    static String getRandomString() {
+        int r = (int) (Math.random() * 8);
+
+        return new String[]{
                 "Nytorv",
                 "Budolfi Plads",
                 "Eternitten",
@@ -53,49 +56,36 @@ public class AddPostActivity extends AppCompatActivity {
                 "Østre Anlæg",
                 "Musikkens Hus",
                 "Jomfru Ane Gade"}[r];
-
-        return location;
     }
 
-    static String getCategoryString(){
-        int r = (int) (Math.random()*6);
-        String category = new String [] {
+    static String getCategoryString() {
+        int r = (int) (Math.random() * 6);
+
+        return new String[]{
                 "Culture",
                 "History",
                 "Food",
                 "Norms",
                 "Activities",
                 "Language"}[r];
-
-        return category;
-    }
-    public void addPostToFeed(View v){
-        EditText description = (EditText)findViewById(R.id.text_view_insert_description);
-
-        Post post = new Post(String.valueOf(getRandomString()), (String.valueOf(getCategoryString())), String.valueOf(description.getText()),0,0,"123");
-        postViewModel.insert(post);
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     public void onCategoryClicked(View view) {
-        final ImageButton cultureBtn = (ImageButton)findViewById(R.id.cultureBtn);
-        final ImageButton historyBtn = (ImageButton)findViewById(R.id.historyBtn);
-        final ImageButton activityBtn = (ImageButton)findViewById(R.id.activitiesBtn);
-        final ImageButton languageBtn = (ImageButton)findViewById(R.id.languagesBtn);
-        final ImageButton normsBtn = (ImageButton)findViewById(R.id.normsBtn);
-        final ImageButton foodBtn = (ImageButton)findViewById(R.id.foodBtn);
-        final TextView category = (TextView)findViewById(R.id.CategoryText);
-        final ImageView categoryImg = (ImageView)findViewById(R.id.category_icon);
+        final ImageButton cultureBtn = (ImageButton) findViewById(R.id.cultureBtn);
+        final ImageButton historyBtn = (ImageButton) findViewById(R.id.historyBtn);
+        final ImageButton activityBtn = (ImageButton) findViewById(R.id.activitiesBtn);
+        final ImageButton languageBtn = (ImageButton) findViewById(R.id.languagesBtn);
+        final ImageButton normsBtn = (ImageButton) findViewById(R.id.normsBtn);
+        final ImageButton foodBtn = (ImageButton) findViewById(R.id.foodBtn);
+        final TextView category = (TextView) findViewById(R.id.CategoryText);
+        final ImageView categoryImg = (ImageView) findViewById(R.id.category_icon);
 
-        cultureBtn.setOnClickListener(new View.OnClickListener(){
+
+        cultureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Information", "The Culture button was clicked");
-                Log.i("Test", (String.valueOf(getRandomString())));
-                Log.i("Test", (String.valueOf(getCategoryString())));
-                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                Log.i("Culture", "The Culture button was clicked");
+                LinearLayout ln = (LinearLayout) findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 category.setText(R.string.culture);
                 categoryImg.setImageResource(R.drawable.ic_culture_icon);
@@ -108,11 +98,11 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
-        historyBtn.setOnClickListener(new View.OnClickListener(){
+        historyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Information", "The History button was clicked");
-                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                Log.i("History", "The History button was clicked");
+                LinearLayout ln = (LinearLayout) findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorYellow));
                 category.setText(R.string.history);
                 categoryImg.setImageResource(R.drawable.ic_history_icon);
@@ -125,11 +115,11 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
-        activityBtn.setOnClickListener(new View.OnClickListener(){
+        activityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Information", "The Activities button was clicked");
-                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                Log.i("Activities", "The Activities button was clicked");
+                LinearLayout ln = (LinearLayout) findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorPink));
                 category.setText(R.string.activities);
                 categoryImg.setImageResource(R.drawable.ic_activites_icon);
@@ -139,14 +129,21 @@ public class AddPostActivity extends AppCompatActivity {
                 languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn_inactive));
                 normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn_inactive));
                 foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn_inactive));
+                Log.d("Penis", (String) category.getText());
+
+                if (String.valueOf(category.getText()).equals("Activities"))
+                    Log.i("Penis", "Penis");
+                else {
+                    Log.i("Penis", "Vagina");
+                }
             }
         });
 
-        languageBtn.setOnClickListener(new View.OnClickListener(){
+        languageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Information", "The Languages button was clicked");
-                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                Log.i("Languages", "The Languages button was clicked");
+                LinearLayout ln = (LinearLayout) findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorBlue));
                 category.setText(R.string.language);
                 categoryImg.setImageResource(R.drawable.ic_languages_icon);
@@ -159,11 +156,11 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
-        normsBtn.setOnClickListener(new View.OnClickListener(){
+        normsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Information", "The Norms button was clicked");
-                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                Log.i("Norms", "The Norms button was clicked");
+                LinearLayout ln = (LinearLayout) findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorGreen));
                 category.setText(R.string.norms);
                 categoryImg.setImageResource(R.drawable.ic_norms_icon);
@@ -176,11 +173,11 @@ public class AddPostActivity extends AppCompatActivity {
             }
         });
 
-        foodBtn.setOnClickListener(new View.OnClickListener(){
+        foodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Information", "The Food button was clicked");
-                LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
+                Log.i("Food", "The Food button was clicked");
+                LinearLayout ln = (LinearLayout) findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorOrange));
                 category.setText(R.string.food);
                 categoryImg.setImageResource(R.drawable.ic_food_icon);
@@ -215,8 +212,44 @@ public class AddPostActivity extends AppCompatActivity {
         });
     }
 
-    public void startCamera(View view){
+    public void startCamera(View view) {
         Intent myCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(myCameraIntent, CAMERA_REQUEST);
     }
+
+
+    public void addPostToFeed(View v) {
+        final TextView category = findViewById(R.id.CategoryText);
+        String categoryString;
+
+        if (category.getText().equals("Culture")) {
+            Log.i("Category", "The category was set to 'Culture'");
+            categoryString = "Culture";
+        } else if (category.getText().equals("History")) {
+            Log.i("History", "The category was set to 'History'");
+            categoryString = "History";
+        } else if (category.getText().equals("Activities")) {
+            Log.i("Activities", "The category was set to 'Activities'");
+            categoryString = "Activities";
+        } else if (category.getText().equals("Language")) {
+            Log.i("Language", "The category was set to 'Language'");
+            categoryString = "Language";
+        } else if (category.getText().equals("Norms")) {
+            Log.i("Norms", "The category was set to 'Norms'");
+            categoryString = "Norms";
+        } else if (category.getText().equals("Food")) {
+            Log.i("Food", "The category was set to 'Food'");
+            categoryString = "Food";
+        } else categoryString = "None";
+
+        //final String categoryString = String.valueOf(getCategoryString());
+        EditText description = findViewById(R.id.text_view_insert_description);
+
+        Post post = new Post(randomString, categoryString, description.getText().toString(), 0, 0, "123");
+        postViewModel.insert(post);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
