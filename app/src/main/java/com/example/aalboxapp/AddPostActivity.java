@@ -43,7 +43,7 @@ public class AddPostActivity extends AppCompatActivity {
         }
 
     static String getRandomString(){
-        int r = (int) (Math.random()*9);
+        int r = (int) (Math.random()*8);
         String location = new String [] {
                 "Nytorv",
                 "Budolfi Plads",
@@ -58,14 +58,21 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     static String getCategoryString(){
-        String category = "Test";
+        int r = (int) (Math.random()*6);
+        String category = new String [] {
+                "Culture",
+                "History",
+                "Food",
+                "Norms",
+                "Activities",
+                "Language"}[r];
 
         return category;
     }
     public void addPostToFeed(View v){
         EditText description = (EditText)findViewById(R.id.text_view_insert_description);
 
-        Post post = new Post(String.valueOf(getRandomString()), String.valueOf(getCategoryString()), String.valueOf(description.getText()),0,0,"123");
+        Post post = new Post(String.valueOf(getRandomString()), (String.valueOf(getCategoryString())), String.valueOf(description.getText()),0,0,"123");
         postViewModel.insert(post);
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -86,6 +93,8 @@ public class AddPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("Information", "The Culture button was clicked");
+                Log.i("Test", (String.valueOf(getRandomString())));
+                Log.i("Test", (String.valueOf(getCategoryString())));
                 LinearLayout ln = (LinearLayout)findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 category.setText(R.string.culture);
