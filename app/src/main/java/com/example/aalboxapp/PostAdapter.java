@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -22,8 +23,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     public void setPosts(List<PostWithInteractions> postWithInteractions){
         this.postWithInteractions = postWithInteractions;
         notifyDataSetChanged();
-
-
     }
 
 
@@ -53,28 +52,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
         LinearLayout linearLayout = holder.itemView.findViewById(R.id.linearLayoutColor);
         PostWithInteractions post = postWithInteractions.get(position);
+        ImageView image = linearLayout.findViewById(R.id.category_icon_postview);
 
         switch (post.post.getCategory()){
             case "History":
                 linearLayout.setBackgroundColor(Color.parseColor(categories.get("History")));
+                image.setImageDrawable(linearLayout.getContext().getDrawable(R.drawable.ic_history_icon));
                 break;
             case "Food":
                 linearLayout.setBackgroundColor(Color.parseColor(categories.get("Food")));
+                image.setImageDrawable(linearLayout.getContext().getDrawable(R.drawable.ic_food_icon));
                 break;
             case "Language":
                 linearLayout.setBackgroundColor(Color.parseColor(categories.get("Language")));
+                image.setImageDrawable(linearLayout.getContext().getDrawable(R.drawable.ic_languages_icon));
                 break;
             case "Activities":
                 linearLayout.setBackgroundColor(Color.parseColor(categories.get("Activities")));
+                image.setImageDrawable(linearLayout.getContext().getDrawable(R.drawable.ic_activites_icon));
                 break;
             case "Norms":
                 linearLayout.setBackgroundColor(Color.parseColor(categories.get("Norms")));
+                image.setImageDrawable(linearLayout.getContext().getDrawable(R.drawable.ic_norms_icon));
                 break;
             case "Culture":
                 linearLayout.setBackgroundColor(Color.parseColor(categories.get("Culture")));
+                image.setImageDrawable(linearLayout.getContext().getDrawable(R.drawable.ic_culture_icon));
                 break;
             case "None":
-                linearLayout.setBackgroundColor(Color.parseColor("#C6C6C6"));
+                linearLayout.setBackgroundColor(Color.parseColor(categories.get("None")));
+                image.setImageDrawable(linearLayout.getContext().getDrawable(R.drawable.ic_category));
                 break;
             default:break;
         }

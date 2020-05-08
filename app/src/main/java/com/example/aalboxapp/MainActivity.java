@@ -10,11 +10,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.content.Intent;
@@ -25,22 +27,38 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+
 import static com.example.aalboxapp.ApplicationClass.categories;
 
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Information";
     BottomNavigationView bottomNavigation;
+    ImageView iconic;
+    TextView categoryText;
     private PostViewModel postViewModel;
     private String currentTab = "ALL";
     private final List<PostWithInteractions> postWithInteractions = null;
 
-    private Hashtable<String, Boolean> categoryStates = new Hashtable<String, Boolean>() {{put("History", true); put("Food", true); put("Language", true); put("Culture", true); put("Norms", true); put("Activities", true); put("None", true);}};
+    private Hashtable<String, Boolean> categoryStates = new Hashtable<String, Boolean>() {
+        {
+            put("History", true);
+            put("Food", true);
+            put("Language", true);
+            put("Culture", true);
+            put("Norms", true);
+            put("Activities", true);
+            put("None", true);
+        }
+    };
+
 
     // Creates NFC-button
     @Override
@@ -68,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        iconic = findViewById(R.id.category_icon_postview);
+        categoryText = findViewById(R.id.text_view_category);
 
         SharedPreferences myPrefsFile = getApplicationContext().getSharedPreferences("MyPrefsFile", Activity.MODE_PRIVATE);
         categoryStates.replace("History", myPrefsFile.getBoolean("History", true));
@@ -92,26 +112,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         List<String> categoryStrings = new ArrayList<>();
-        for (String key:categoryStates.keySet()) {
-            if(categoryStates.get(key)){
+        for (String key : categoryStates.keySet()) {
+            if (categoryStates.get(key)) {
                 categoryStrings.add(key);
             }
         }
-        postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+        postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
 
-        View topNavigation =  findViewById(R.id.top_navigation);
-        final BottomNavigationItemView allBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_all);
-        final BottomNavigationItemView likedBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_liked);
-        final BottomNavigationItemView yourpostsBtn = (BottomNavigationItemView)topNavigation.findViewById(R.id.navigation_yourposts);
-        final TextView yourLikeTxtView = (TextView)findViewById(R.id.yourliketxtview);
+        View topNavigation = findViewById(R.id.top_navigation);
+        final BottomNavigationItemView allBtn = topNavigation.findViewById(R.id.navigation_all);
+        final BottomNavigationItemView likedBtn = topNavigation.findViewById(R.id.navigation_liked);
+        final BottomNavigationItemView yourpostsBtn = topNavigation.findViewById(R.id.navigation_yourposts);
+        final TextView yourLikeTxtView = findViewById(R.id.yourliketxtview);
 
         // TO MAKE THE ITEM SEEM ACTIVE
         allBtn.setBackgroundColor(Color.parseColor("#02083C"));
-        allBtn.setPadding(0,0,0,5);
+        allBtn.setPadding(0, 0, 0, 5);
         likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-        likedBtn.setPadding(0,0,0,0);
+        likedBtn.setPadding(0, 0, 0, 0);
         yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-        yourpostsBtn.setPadding(0,0,0,0);
+        yourpostsBtn.setPadding(0, 0, 0, 0);
 
         allBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
@@ -119,21 +139,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("TopNavigation", "The 'All'-Button clicked!");
                 allBtn.setBackgroundColor(Color.parseColor("#02083C"));
-                allBtn.setPadding(0,0,0,5);
+                allBtn.setPadding(0, 0, 0, 5);
                 likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                likedBtn.setPadding(0,0,0,0);
+                likedBtn.setPadding(0, 0, 0, 0);
                 yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                yourpostsBtn.setPadding(0,0,0,0);
-                overridePendingTransition(0,0);
+                yourpostsBtn.setPadding(0, 0, 0, 0);
+                overridePendingTransition(0, 0);
 
                 List<String> categoryStrings = new ArrayList<>();
-                for (String key:categoryStates.keySet()) {
-                    if(categoryStates.get(key)){
+                for (String key : categoryStates.keySet()) {
+                    if (categoryStates.get(key)) {
                         categoryStrings.add(key);
                     }
                 }
                 currentTab = "ALL";
-                postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+                postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
                 yourLikeTxtView.setVisibility(View.INVISIBLE);
 
             }
@@ -144,21 +164,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("TopNavigation", "The 'Liked'-Button clicked!");
                 allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                allBtn.setPadding(0,0,0,0);
+                allBtn.setPadding(0, 0, 0, 0);
                 likedBtn.setBackgroundColor(Color.parseColor("#02083C"));
-                likedBtn.setPadding(0,0,0,5);
+                likedBtn.setPadding(0, 0, 0, 5);
                 yourpostsBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                yourpostsBtn.setPadding(0,0,0,0);
-                overridePendingTransition(0,0);
+                yourpostsBtn.setPadding(0, 0, 0, 0);
+                overridePendingTransition(0, 0);
 
                 List<String> categoryStrings = new ArrayList<>();
-                for (String key:categoryStates.keySet()) {
-                    if(categoryStates.get(key)){
+                for (String key : categoryStates.keySet()) {
+                    if (categoryStates.get(key)) {
                         categoryStrings.add(key);
                     }
                 }
                 currentTab = "MY_LIKED_POSTS";
-                postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+                postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
                 yourLikeTxtView.setVisibility(View.INVISIBLE);
             }
         });
@@ -168,24 +188,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("TopNavigation", "The 'Your Posts'-Button clicked!");
                 allBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                allBtn.setPadding(0,0,0,0);
+                allBtn.setPadding(0, 0, 0, 0);
                 likedBtn.setBackgroundColor(Color.parseColor("#030C5B"));
-                likedBtn.setPadding(0,0,0,0);
+                likedBtn.setPadding(0, 0, 0, 0);
                 yourpostsBtn.setBackgroundColor(Color.parseColor("#02083C"));
-                yourpostsBtn.setPadding(0,0,0,5);
-                overridePendingTransition(0,0);
+                yourpostsBtn.setPadding(0, 0, 0, 5);
+                overridePendingTransition(0, 0);
 
                 List<String> categoryStrings = new ArrayList<>();
-                for (String key:categoryStates.keySet()) {
-                    if(categoryStates.get(key)){
+                for (String key : categoryStates.keySet()) {
+                    if (categoryStates.get(key)) {
                         categoryStrings.add(key);
                     }
                 }
                 currentTab = "MY_POSTS";
-                postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+                postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
                 yourLikeTxtView.setVisibility(View.VISIBLE);
 
             }
+
         });
 
         postViewModel.getPostWithInteractionLiveData().observe(this, new Observer<List<PostWithInteractions>>() {
@@ -194,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 postAdapter.setPosts(postWithInteractions);
 
                 int count = 0;
-                for (PostWithInteractions post:postWithInteractions) {
+                for (PostWithInteractions post : postWithInteractions) {
                     count += post.post.getLike();
                 }
                 yourLikeTxtView.setText("Your likes: " + String.valueOf(count));
@@ -206,19 +227,19 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClicked(PostWithInteractions post, boolean isLike) {
                 String mobileid = "123"; //change later to right mobile number on phone
 
-                if(isLike){
+                if (isLike) {
                     boolean interaction_found = false;
-                    for (PostInteraction interaction:post.postInteractions) {
-                        if(interaction.getMobileId().equals(mobileid)){
+                    for (PostInteraction interaction : post.postInteractions) {
+                        if (interaction.getMobileId().equals(mobileid)) {
                             interaction_found = true;
                             //Hvis vi liker en post, vi allerede har liket
-                            if(interaction.isLiked()){
+                            if (interaction.isLiked()) {
                                 post.post.setLike(post.post.getLike() - 1);
                                 postViewModel.delete(interaction);
                                 break;
                             }
                             //Hvis vi liker en post, vi har disliked
-                            else if(interaction.isDisliked()){
+                            else if (interaction.isDisliked()) {
                                 post.post.setLike(post.post.getLike() + 1);
                                 post.post.setDislike(post.post.getDislike() - 1);
                                 interaction.setDisliked(false);
@@ -229,18 +250,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    if(!interaction_found){
-                        postViewModel.insert(new PostInteraction("123",post.post.getId(),true,false));
+                    if (!interaction_found) {
+                        postViewModel.insert(new PostInteraction("123", post.post.getId(), true, false));
                         post.post.setLike(post.post.getLike() + 1);
                     }
-                }
-                else{
+                } else {
                     boolean interaction_found = false;
-                    for (PostInteraction interaction:post.postInteractions) {
-                        if(interaction.getMobileId().equals(mobileid)){
+                    for (PostInteraction interaction : post.postInteractions) {
+                        if (interaction.getMobileId().equals(mobileid)) {
                             interaction_found = true;
                             //Hvis vi disliker en post, vi allerede har liked
-                            if(interaction.isLiked()){
+                            if (interaction.isLiked()) {
                                 post.post.setLike(post.post.getLike() - 1);
                                 post.post.setDislike(post.post.getDislike() + 1);
                                 interaction.setLiked(false);
@@ -249,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                             //Hvis vi disliker en post, vi har disliked
-                            else if(interaction.isDisliked()){
+                            else if (interaction.isDisliked()) {
                                 post.post.setDislike(post.post.getDislike() - 1);
                                 postViewModel.delete(interaction);
                                 break;
@@ -257,13 +277,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    if(!interaction_found){
-                        postViewModel.insert(new PostInteraction("123",post.post.getId(),false,true));
+                    if (!interaction_found) {
+                        postViewModel.insert(new PostInteraction("123", post.post.getId(), false, true));
                         post.post.setDislike(post.post.getDislike() + 1);
                     }
                 }
 
-                Post newpost = new Post(post.post.getLocation(), post.post.getCategory(), post.post.getDescription(), post.post.getLike(), post.post.getDislike(),post.post.getMobileId());
+                Post newpost = new Post(post.post.getLocation(), post.post.getCategory(), post.post.getDescription(), post.post.getLike(), post.post.getDislike(), post.post.getMobileId());
                 newpost.setId(post.post.getId());
                 postViewModel.update(newpost);
 
@@ -277,19 +297,20 @@ public class MainActivity extends AppCompatActivity {
     // Bottom navigation. "overridePendingTransition" controls the animation.
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.navigation_feed:
                             Log.i("Feed", "The feed opens at home.");
-                            overridePendingTransition(0,0);
+                            overridePendingTransition(0, 0);
                             startActivity(new Intent(MainActivity.this, MainActivity.class));
-                            overridePendingTransition(0,0);
+                            overridePendingTransition(0, 0);
                             return true;
                         case R.id.navigation_map:
                             Log.i("Map", "Opens the map.");
-                            overridePendingTransition(0,0);
+                            overridePendingTransition(0, 0);
                             startActivity(new Intent(MainActivity.this, MapFragment.class));
-                            overridePendingTransition(0,0);
+                            overridePendingTransition(0, 0);
                             return true;
                     }
                     return false;
@@ -308,13 +329,13 @@ public class MainActivity extends AppCompatActivity {
 
         popupWindow.showAtLocation(view, Gravity.RIGHT, 22, -118);
 
-        final ImageButton historyBtn = (ImageButton)popupView.findViewById(R.id.historyBtn);
-        final ImageButton normBtn = (ImageButton)popupView.findViewById(R.id.normBtn);
-        final ImageButton cultureBtn = (ImageButton)popupView.findViewById(R.id.cultureBtn);
-        final ImageButton activityBtn = (ImageButton)popupView.findViewById(R.id.activityBtn);
-        final ImageButton foodBtn = (ImageButton)popupView.findViewById(R.id.foodBtn);
-        final ImageButton langBtn = (ImageButton)popupView.findViewById(R.id.langBtn);
-        Button saveBtn = (Button)popupView.findViewById(R.id.saveFilterBtn);
+        final ImageButton historyBtn = (ImageButton) popupView.findViewById(R.id.historyBtn);
+        final ImageButton normBtn = (ImageButton) popupView.findViewById(R.id.normBtn);
+        final ImageButton cultureBtn = (ImageButton) popupView.findViewById(R.id.cultureBtn);
+        final ImageButton activityBtn = (ImageButton) popupView.findViewById(R.id.activityBtn);
+        final ImageButton foodBtn = (ImageButton) popupView.findViewById(R.id.foodBtn);
+        final ImageButton langBtn = (ImageButton) popupView.findViewById(R.id.langBtn);
+        Button saveBtn = (Button) popupView.findViewById(R.id.saveFilterBtn);
 
         handleCategoryColor("History", historyBtn);
         handleCategoryColor("Culture", cultureBtn);
@@ -323,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
         handleCategoryColor("Food", foodBtn);
         handleCategoryColor("Language", langBtn);
 
-        historyBtn.setOnClickListener(new View.OnClickListener(){
+        historyBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -332,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        normBtn.setOnClickListener(new View.OnClickListener(){
+        normBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -340,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        cultureBtn.setOnClickListener(new View.OnClickListener(){
+        cultureBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -348,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        activityBtn.setOnClickListener(new View.OnClickListener(){
+        activityBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -356,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        foodBtn.setOnClickListener(new View.OnClickListener(){
+        foodBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -364,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        langBtn.setOnClickListener(new View.OnClickListener(){
+        langBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -372,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        saveBtn.setOnClickListener(new View.OnClickListener(){
+        saveBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -387,36 +408,37 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
 
                 List<String> categoryStrings = new ArrayList<>();
-                for (String key:categoryStates.keySet()) {
-                    if(categoryStates.get(key)){
+                for (String key : categoryStates.keySet()) {
+                    if (categoryStates.get(key)) {
                         categoryStrings.add(key);
                     }
                 }
-                postViewModel.setFilterlivedata(new PostFilter(categoryStrings,currentTab));
+                postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
                 popupWindow.dismiss();
             }
         });
 
 
     }
-    public void changeToAddPostView(View view){
+
+    public void changeToAddPostView(View view) {
         Intent intent = new Intent(this, AddPostActivity.class);
         startActivity(intent);
     }
 
 
-    public void handleCategoryClicked(String category, ImageButton button){
+    public void handleCategoryClicked(String category, ImageButton button) {
         categoryStates.replace(category, !categoryStates.get(category));
         handleCategoryColor(category, button);
 
     }
 
-    public void handleCategoryColor(String category, ImageButton button){
-        if (categoryStates.get(category) == true){
+    public void handleCategoryColor(String category, ImageButton button) {
+        if (categoryStates.get(category) == true) {
             button.setBackgroundColor(Color.parseColor(categories.get(category)));
         } else {
             String tempColor = categories.get(category);
-            tempColor = tempColor.substring(0,1) + "60" + tempColor.substring(1,tempColor.length());
+            tempColor = tempColor.substring(0, 1) + "60" + tempColor.substring(1, tempColor.length());
             button.setBackgroundColor(Color.parseColor(tempColor));
         }
 

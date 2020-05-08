@@ -21,6 +21,7 @@ public class ApplicationClass extends Application {
         categories.put("Norms", "#6EE07F");
         categories.put("Activities", "#FD94FE");
         categories.put("default", "#000000");
+        categories.put("None", "#C6C6C6");
 
 
 

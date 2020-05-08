@@ -40,7 +40,7 @@ public class AddPostActivity extends AppCompatActivity {
         randomString = getRandomString();
 
         // Change the location randomly
-        TextView locationText = (TextView) findViewById(R.id.locationText);
+        TextView locationText = findViewById(R.id.locationText);
         locationText.setText(randomString);
     }
 
@@ -58,17 +58,6 @@ public class AddPostActivity extends AppCompatActivity {
                 "Jomfru Ane Gade"}[r];
     }
 
-    static String getCategoryString() {
-        int r = (int) (Math.random() * 6);
-
-        return new String[]{
-                "Culture",
-                "History",
-                "Food",
-                "Norms",
-                "Activities",
-                "Language"}[r];
-    }
 
     public void onCategoryClicked(View view) {
         final ImageButton cultureBtn = (ImageButton) findViewById(R.id.cultureBtn);
@@ -119,7 +108,7 @@ public class AddPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("Activities", "The Activities button was clicked");
-                LinearLayout ln = (LinearLayout) findViewById(R.id.topbarCategory);
+                LinearLayout ln = findViewById(R.id.topbarCategory);
                 ln.setBackgroundColor(getResources().getColor(R.color.colorPink));
                 category.setText(R.string.activities);
                 categoryImg.setImageResource(R.drawable.ic_activites_icon);
@@ -129,13 +118,6 @@ public class AddPostActivity extends AppCompatActivity {
                 languageBtn.setBackground(getDrawable(R.drawable.ic_language_btn_inactive));
                 normsBtn.setBackground(getDrawable(R.drawable.ic_norms_btn_inactive));
                 foodBtn.setBackground(getDrawable(R.drawable.ic_food_btn_inactive));
-                Log.d("Penis", (String) category.getText());
-
-                if (String.valueOf(category.getText()).equals("Activities"))
-                    Log.i("Penis", "Penis");
-                else {
-                    Log.i("Penis", "Vagina");
-                }
             }
         });
 
@@ -247,9 +229,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         Post post = new Post(randomString, categoryString, description.getText().toString(), 0, 0, "123");
         postViewModel.insert(post);
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
     }
 
 }
