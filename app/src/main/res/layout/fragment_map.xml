@@ -6,25 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".MapFragment">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container_bottom"
-        >
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+        <!-- Bottom Navigation / Starts -->
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/colorPrimary"
-            app:itemTextColor="@color/colorWhite"
-            app:itemBackground="@color/colorGreen"
-            app:menu="@menu/bottom_navigation"
-            app:itemTextAppearanceActive="@style/navTextActive"
-            app:itemTextAppearanceInactive="@style/navTextInactive"
-            />
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <Button
+                android:id="@+id/add1PostBtn"
+                android:paddingTop="200dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:onClick="changeToAddPostView"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_addpost_whitegray"
+                android:elevation="10dp"
+                android:layout_gravity="center"
+                tools:ignore="OnClick" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/container_bottom"
+                >
+
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottom_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/colorPrimary"
+                    app:elevation="8dp"
+                    app:itemTextAppearanceActive="@style/navTextActive"
+                    app:itemTextAppearanceInactive="@style/navTextInactive"
+                    app:itemTextColor="@color/colorWhite"
+                    app:menu="@menu/bottom_navigation">
+
+
+                </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+            </FrameLayout>
+
+            <!-- Add Post / Ends -->
+
+        </RelativeLayout>
+        <!-- Bottom Navigation / Ends -->
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
