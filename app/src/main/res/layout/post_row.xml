@@ -119,8 +119,6 @@
                 android:layout_marginEnd="20dp">
 
             </TextView>
-
-
         </LinearLayout>
 
 
@@ -137,9 +135,19 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/delete"
                 android:id="@+id/deletePostBtn"
-                android:visibility="invisible">
+                android:background="@null"
+                android:layout_marginTop="13dp">
             </ImageButton>
 
+
+            <ImageView
+                android:id="@+id/googletranslate"
+                android:layout_width="161dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_googletranslate"
+                android:layout_weight="2"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="13dp"/>
 
 
             <ImageButton
@@ -169,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/ic_dislike">
 

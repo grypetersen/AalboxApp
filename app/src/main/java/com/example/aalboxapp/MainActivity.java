@@ -229,10 +229,10 @@ public class MainActivity extends AppCompatActivity {
 
         postAdapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
             @Override
-            public void onItemClicked(PostWithInteractions post, boolean isLike) {
+            public void onItemClicked(PostWithInteractions post, int actionBtnId) {
                 String mobileid = "123"; //change later to right mobile number on phone
 
-                if (isLike) {
+                if (actionBtnId == 1) {
                     boolean interaction_found = false;
                     for (PostInteraction interaction : post.postInteractions) {
                         if (interaction.getMobileId().equals(mobileid)) {
@@ -259,7 +259,11 @@ public class MainActivity extends AppCompatActivity {
                         postViewModel.insert(new PostInteraction("123", post.post.getId(), true, false));
                         post.post.setLike(post.post.getLike() + 1);
                     }
-                } else {
+                    Post newpost = new Post(post.post.getLocation(), post.post.getCategory(), post.post.getDescription(), post.post.getLike(), post.post.getDislike(), post.post.getMobileId());
+                    newpost.setId(post.post.getId());
+                    postViewModel.update(newpost);
+
+                } else if(actionBtnId == 2) {
                     boolean interaction_found = false;
                     for (PostInteraction interaction : post.postInteractions) {
                         if (interaction.getMobileId().equals(mobileid)) {
@@ -286,11 +290,13 @@ public class MainActivity extends AppCompatActivity {
                         postViewModel.insert(new PostInteraction("123", post.post.getId(), false, true));
                         post.post.setDislike(post.post.getDislike() + 1);
                     }
-                }
+                    Post newpost = new Post(post.post.getLocation(), post.post.getCategory(), post.post.getDescription(), post.post.getLike(), post.post.getDislike(), post.post.getMobileId());
+                    newpost.setId(post.post.getId());
+                    postViewModel.update(newpost);
 
-                Post newpost = new Post(post.post.getLocation(), post.post.getCategory(), post.post.getDescription(), post.post.getLike(), post.post.getDislike(), post.post.getMobileId());
-                newpost.setId(post.post.getId());
-                postViewModel.update(newpost);
+                } else {
+                    postViewModel.delete(post.post);
+                }
 
 
                 postAdapter.notifyDataSetChanged();

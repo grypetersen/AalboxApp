@@ -23,6 +23,9 @@ public interface PostDAO {
     @Query("SELECT * from Post_table ORDER BY id DESC")
     LiveData<List<Post>> getAllPost();
 
+    @Delete
+    void deletePost(Post post);
+
     //PostInteraction
     @Query("SELECT * from Post_interaction_table")
     LiveData<List<PostInteraction>> getAllPostInteractions();
@@ -35,6 +38,12 @@ public interface PostDAO {
 
     @Delete
     void deletePostInteraction(PostInteraction postInteraction);
+
+    @Transaction
+    @Query("DELETE FROM Post_interaction_table WHERE post_id = :postId")
+    void deletePostInteractions(int postId);
+
+
 
     //AllPostWithLikes
     @Transaction

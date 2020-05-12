@@ -41,6 +41,7 @@ public class PostViewModel extends AndroidViewModel {
         repo.update(post);
     }
 
+    public void delete(Post post){repo.delete(post);}
 
     //post interactions
     public void insert(PostInteraction postInteraction){

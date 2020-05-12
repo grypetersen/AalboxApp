@@ -81,6 +81,23 @@ public class PostRepo {
         }
     }
 
+
+    public void delete(Post post){new DeletePostAsync(postDao).execute(post);}
+    private static class DeletePostAsync extends AsyncTask<Post,Void,Void> {
+        private PostDAO postDAO;
+        private DeletePostAsync(PostDAO postDAO){ this.postDAO = postDAO; }
+
+        @Override
+        protected Void doInBackground(Post... post) {
+            postDAO.deletePost(post[0]);
+            postDAO.deletePostInteractions(post[0].getId());
+            return null;
+        }
+    }
+
+
+
+
     public void insert(PostInteraction postInteraction){new InsertLikedPostAsync(postDao).execute(postInteraction);}
     private static class InsertLikedPostAsync extends AsyncTask<PostInteraction, Void, Void> {
         private PostDAO postDAO;

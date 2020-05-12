@@ -1,6 +1,7 @@
 package com.example.aalboxapp;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
 
     public interface OnItemClickListener{
-        void onItemClicked(PostWithInteractions post, boolean isLike);
+        void onItemClicked(PostWithInteractions post, int actionBtnId);
     }
 
     public void setOnItemClickListener(OnItemClickListener clickListener){
@@ -117,6 +118,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         private TextView textViewDislike;
         private ImageButton btnLike;
         private ImageButton btnDislike;
+        private ImageButton btnDelete;
 
 
         public PostHolder(@NonNull View itemView) {
@@ -128,6 +130,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             textViewDislike = itemView.findViewById(R.id.text_view_dislike);
             btnLike = itemView.findViewById(R.id.btn_like);
             btnDislike = itemView.findViewById(R.id.btn_dislike);
+            btnDelete = itemView.findViewById(R.id.deletePostBtn);
 
 
             btnDislike.setOnClickListener(new View.OnClickListener(){
@@ -136,7 +139,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
                     int position = getAdapterPosition();
                     if (clickListener != null && position!=RecyclerView.NO_POSITION){
                         PostWithInteractions post = postWithInteractions.get(position);
-                        clickListener.onItemClicked(post, false);
+                        clickListener.onItemClicked(post, 2);
 
                     }
 
@@ -149,10 +152,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
                     int position = getAdapterPosition();
                     if (clickListener != null && position!=RecyclerView.NO_POSITION){
                         PostWithInteractions post = postWithInteractions.get(position);
-                        clickListener.onItemClicked(post, true);
+                        clickListener.onItemClicked(post, 1);
                     }
                 }
             });
+
+            btnDelete.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (clickListener != null && position!=RecyclerView.NO_POSITION){
+                        PostWithInteractions post = postWithInteractions.get(position);
+                        clickListener.onItemClicked(post, 3);
+                    }
+
+                }
+            });
+
+
         }
     }
 }
