@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 currentTab = "ALL";
                 postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
                 yourLikeTxtView.setVisibility(View.INVISIBLE);
+                postAdapter.showDeleteBtn(false);
 
             }
         });
@@ -180,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
                 currentTab = "MY_LIKED_POSTS";
                 postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
                 yourLikeTxtView.setVisibility(View.INVISIBLE);
+                postAdapter.showDeleteBtn(false);
+
             }
         });
 
@@ -204,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
                 currentTab = "MY_POSTS";
                 postViewModel.setFilterlivedata(new PostFilter(categoryStrings, currentTab));
                 yourLikeTxtView.setVisibility(View.VISIBLE);
+                postAdapter.showDeleteBtn(true);
+
 
             }
 

@@ -19,6 +19,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
     private List<PostWithInteractions> postWithInteractions = new ArrayList<>();
     public OnItemClickListener clickListener;
+    public boolean showBtn = false;
 
     public void setPosts(List<PostWithInteractions> postWithInteractions){
         this.postWithInteractions = postWithInteractions;
@@ -32,6 +33,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
 
     public void setOnItemClickListener(OnItemClickListener clickListener){
         this.clickListener = clickListener;
+    }
+
+    public void showDeleteBtn(boolean show){
+        this.showBtn = show;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -53,6 +59,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         LinearLayout linearLayout = holder.itemView.findViewById(R.id.linearLayoutColor);
         PostWithInteractions post = postWithInteractions.get(position);
         ImageView image = linearLayout.findViewById(R.id.category_icon_postview);
+        ImageButton deleteBtn = holder.itemView.findViewById(R.id.deletePostBtn);
+
+        if (this.showBtn){
+            deleteBtn.setVisibility(View.VISIBLE);
+        } else{
+            deleteBtn.setVisibility(View.INVISIBLE);
+        }
 
         switch (post.post.getCategory()){
             case "History":

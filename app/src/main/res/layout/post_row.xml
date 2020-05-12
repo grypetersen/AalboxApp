@@ -132,16 +132,15 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp">
 
-            <ImageView
-                android:id="@+id/googletranslate"
-                android:layout_width="161dp"
-                android:layout_height="20dp"
-                android:layout_centerInParent="true"
-                android:layout_gravity="bottom"
-                android:layout_margin="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_googletranslate" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                android:id="@+id/deletePostBtn"
+                android:visibility="invisible">
+            </ImageButton>
+
+
 
             <ImageButton
                 android:id="@+id/btn_like"
