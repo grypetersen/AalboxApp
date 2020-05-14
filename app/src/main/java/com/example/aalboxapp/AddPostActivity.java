@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.*;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -229,6 +231,15 @@ public class AddPostActivity extends AppCompatActivity {
 
         Post post = new Post(randomString, categoryString, description.getText().toString(), 0, 0, "123");
         postViewModel.insert(post);
+
+        Toast toast = Toast.makeText(AddPostActivity.this,"Your post is now added to feed", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 520);
+        View view = toast.getView();
+        view.setBackgroundColor(Color.parseColor("#030C5B"));
+        TextView text = (TextView) view.findViewById(android.R.id.message);
+        text.setTextColor(Color.WHITE);
+        toast.show();
+
         finish();
     }
 

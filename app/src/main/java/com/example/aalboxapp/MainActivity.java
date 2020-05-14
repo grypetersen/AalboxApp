@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -296,6 +297,13 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     postViewModel.delete(post.post);
+                    Toast toast = Toast.makeText(MainActivity.this,"Your post is now deleted from feed", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 520);
+                    View view = toast.getView();
+                    view.setBackgroundColor(Color.parseColor("#030C5B"));
+                    TextView text = (TextView) view.findViewById(android.R.id.message);
+                    text.setTextColor(Color.WHITE);
+                    toast.show();
                 }
 
 
